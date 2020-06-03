@@ -5,7 +5,11 @@ Artifact file(s) for [ozwdaemon][1]
 
 ## Installation
 
-**You might find some additional information in the [project wiki](https://github.com/tprelog/iocage-ozwdaemon/wiki)**
+**For manual installation, see the [project wiki](https://github.com/tprelog/iocage-ozwdaemon/wiki/Manual-Install)**
+
+
+---
+
 
 **The current release is intended for FreeNAS 11.3 but should work with FreeNAS 11.2-U7 or later**
 
