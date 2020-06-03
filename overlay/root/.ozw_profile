@@ -1,0 +1,38 @@
+## Enviroment variables for ozwdaemon
+## https://github.com/OpenZWave/qt-openzwave#home-assistant-mqtt-client-adapter
+##
+## These values will override anything set in `rc.d/ozwdaemon` or using `sysrc variable=value`
+##
+
+#MQTT_INSTANCE=1
+#MQTT_PORT=1883
+#MQTT_SERVER=192.168.10.15
+
+#MQTT_USERNAME=ozwd
+#MQTT_PASSWORD="SuPeR!sEcret"
+
+#OZW_NETWORK_KEY="0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"
+
+#USB_PATH="/dev/cuaU0"
+
+
+# --------------------------------------------------------------------------- #
+# -------- Changing these might not work as expected ------------------------ #
+
+#OZW_CONFIG_DIR="/root/config"
+#OZW_USER_DIR="${OZW_CONFIG_DIR}"
+
+# --------------------------------------------------------------------------- #
+# -------- You should not need to edit below this line ---------------------- #
+
+export LD_LIBRARY_PATH="/usr/local/lib:/usr/local/lib64:$LD_LIBRARY_PATH"
+export MQTT_INSTANCE
+export MQTT_PORT
+export MQTT_SERVER
+export MQTT_USERNAME
+export MQTT_PASSWORD
+export OZW_CONFIG_DIR
+export OZW_NETWORK_KEY
+export OZW_USER_DIR
+export STOP_ON_FAILURE
+export USB_PATH
