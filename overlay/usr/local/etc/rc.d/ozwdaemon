@@ -6,14 +6,23 @@
 #
 # ozwdaemon_enable: Set to YES to enable the ozwdaemon service.
 #     Default: NO
+#
 # ozwdaemon_user: The user account used to run the ozwdaemon daemon.
 #     This is optional, however do not specifically set this to an
 #     empty string as this will cause the daemon to run as root.
 #     Default: root
+#
 # ozwdaemon_group: The group account used to run the ozwdaemon daemon.
 #     This is optional, however do not specifically set this to an
 #     empty string as this will cause the daemon to run with group wheel.
 #     Default: wheel
+#
+# ozwdaemon_profile: Path to a file containing ozwdaemon enviroment variables.
+#     Any variables set using ozw_profile will override `ozw_variable` values set
+#     in this rc service script or using `sysrc ozw_variable=value`.
+#     Default:  /root/.ozw_profile
+#     Change:   `sysrc ozw_profile=/root/config/ozw_profile`
+#     UnChange: `sysrc -x ozw_profile`
 #
 # ozw_config_dir: Directory containing the OZW Config Files.
 #     Default:  "/usr/local/etc/openzwave"
@@ -24,6 +33,11 @@
 #     Default:  "/root"
 #     Change:   `sysrc ozw_user_dir=/root/config`
 #     UnChange: `sysrc -x ozw_user_dir`
+#
+# ozw_usb_path: Path to the Z-Wave USB stick or serial device.
+#     Default:  /dev/cuaU0
+#     Change:   `sysrc ozw_usb_path=/dev/ttyACM0`
+#     UnChange: `srsrc -x ozw_usb_path`
 #
 # ozw_mqtt_instance: OpenZWave Instance Number. If you want to run more than one
 #     Z-Wave Network with multiple ozwdaemons, set this to a number greater than 1.
@@ -40,11 +54,6 @@
 #     Default:  localhost
 #     Change:   `sysrc ozw_mqtt_server=192.168.10.100`
 #     UnChange: `sysrc -x ozw_mqtt_server`
-#
-# ozw_usb_path: The Path to the USB Stick/Serial Device file in your jail.
-#     Default:  /dev/cuaU0
-#     Change:   `sysrc ozw_usb_path=/dev/ttyACM0`
-#     UnChange: `srsrc -x ozw_usb_path
 
 # -------------------------------------------------------
 # Copy this file to '/usr/local/etc/rc.d/ozwdaemon' 
@@ -64,6 +73,7 @@ logfile="/var/log/${name}_daemon.log"
 : ${ozwdaemon_enable:="NO"}
 : ${ozwdaemon_user:="root"}
 : ${ozwdaemon_group:="wheel"}
+: ${ozwdaemon_profile:="/root/.ozw_profile"}
 : ${ozw_config_dir:="/usr/local/etc/openzwave"}
 : ${ozw_user_dir:="/root"}
 : ${ozw_usb_path:="/dev/cuaU0"}
@@ -88,15 +98,12 @@ ozwdaemon_restart() {
 
 start_precmd=${name}_precmd
 ozwdaemon_precmd() {
-  local _workdir="/root"
-  cd "${_workdir}"
   
-  local _config="${_workdir}/.ozw_profile"
-  if [ -f "${_config}" ]; then
-    echo "Loading Enviroment Variables from ${_config}"
-    . "${_config}"
+  if [ -f "${ozwdaemon_profile}" ]; then
+    echo "Loading enviroment variables from ${ozwdaemon_profile}"
+    . "${ozwdaemon_profile}"
   fi
-  
+ 
   if [ ! -c ${USB_PATH:=${ozw_usb_path}} ]; then
     echo "USB Path ${USB_PATH} does not exist or is not a Character Device"
     exit 128
