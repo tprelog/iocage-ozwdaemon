@@ -1,12 +1,13 @@
 # iocage-ozwdaemon
 Artifact file(s) for [ozwdaemon][1]
 
+*This jail requires a [pre-existing custom devfs_ruleset][ruleset_wiki]*
+
 **Testing...**
 
 ## Installation
 
-**For manual installation, see the [project wiki](https://github.com/tprelog/iocage-ozwdaemon/wiki/Manual-Install)**
-
+- See manual installation guide in the [project wiki](https://github.com/tprelog/iocage-ozwdaemon/wiki/Manual-Install)
 
 ---
 
