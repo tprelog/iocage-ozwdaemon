@@ -1,26 +1,37 @@
-## Enviroment variables for ozwdaemon
+##
+## Use this file to set enviroment variables for ozwdaemon on FreeNAS/FreeBSD
 ## https://github.com/OpenZWave/qt-openzwave#home-assistant-mqtt-client-adapter
 ##
-## These values will override anything set in `rc.d/ozwdaemon` or using `sysrc variable=value`
+## The `ozw_profile` contains default values used by the ozwdaemon rc service on FreeNAS/FreeBSD.
+## Lines beginning with a ` # ` will be ignored and values set using `sysrc` will be used instead.
+## 
+## Variables set in this file will override corresponding values set in `/usr/local/etc/rc.d/ozwdaemon` 
+##    and also any values set using `sysrc variable=value`
 ##
 
 #MQTT_INSTANCE=1
-#MQTT_PORT=1883
-#MQTT_SERVER=192.168.10.15
 
-#MQTT_USERNAME=ozwd
+#MQTT_PORT=1883
+
+#MQTT_SERVER=localhost
+
+#MQTT_USERNAME="ozw"
+
 #MQTT_PASSWORD="SuPeR!sEcret"
 
 #OZW_NETWORK_KEY="0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"
+
+#OZW_CONFIG_DIR="/usr/local/etc/openzwave"
+
+#OZW_USER_DIR="/root"
 
 #USB_PATH="/dev/cuaU0"
 
 
 # --------------------------------------------------------------------------- #
-# -------- Changing these might not work as expected ------------------------ #
+# -------- Example to change what's getting logged -------------------------- #
 
-#OZW_CONFIG_DIR="/root/config"
-#OZW_USER_DIR="${OZW_CONFIG_DIR}"
+#QT_LOGGING_RULES="*.debug=false;ozw.library.debug=true"
 
 # --------------------------------------------------------------------------- #
 # -------- You should not need to edit below this line ---------------------- #
@@ -34,5 +45,6 @@ export MQTT_PASSWORD
 export OZW_CONFIG_DIR
 export OZW_NETWORK_KEY
 export OZW_USER_DIR
+export QT_LOGGING_RULES
 export STOP_ON_FAILURE
 export USB_PATH

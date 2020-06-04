@@ -16,10 +16,14 @@
 #     Default: wheel
 #
 # ozw_config_dir: Directory containing the OZW Config Files.
-#     Default:  "/root/config"
+#     Default:  "/usr/local/etc/openzwave"
+#     Change:   `sysrc ozw_config_dir=/root/config`
+#     UnChange: `sysrc -x ozw_config_dir`
 #
 # ozw_user_dir: Directory for the OZW User Files.
-#     Default:  "/root/config"
+#     Default:  "/root"
+#     Change:   `sysrc ozw_user_dir=/root/config`
+#     UnChange: `sysrc -x ozw_user_dir`
 #
 # ozw_mqtt_instance: OpenZWave Instance Number. If you want to run more than one
 #     Z-Wave Network with multiple ozwdaemons, set this to a number greater than 1.
@@ -60,8 +64,8 @@ logfile="/var/log/${name}_daemon.log"
 : ${ozwdaemon_enable:="NO"}
 : ${ozwdaemon_user:="root"}
 : ${ozwdaemon_group:="wheel"}
-: ${ozw_config_dir:="/root/config"}
-: ${ozw_user_dir:="/root/config"}
+: ${ozw_config_dir:="/usr/local/etc/openzwave"}
+: ${ozw_user_dir:="/root"}
 : ${ozw_usb_path:="/dev/cuaU0"}
 : ${ozw_mqtt_instance:="1"}
 : ${ozw_mqtt_port:="1883"}
