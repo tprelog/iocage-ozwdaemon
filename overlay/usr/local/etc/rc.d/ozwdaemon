@@ -21,26 +21,26 @@
 # ozw_user_dir: Directory for the OZW User Files.
 #     Default:  "/root/config"
 #
-# ozw_usb_path: The Path to the USB Stick/Serial Device file in your jail.
-#     Default:  /dev/cuaU0
-#     Change:   `sysrc ozw_usb_path=/dev/ttyUSB0`
-#     UnChange: `srsrc -x ozwdaemon_usb_path
-#
 # ozw_mqtt_instance: OpenZWave Instance Number. If you want to run more than one
 #     Z-Wave Network with multiple ozwdaemons, set this to a number greater than 1.
 #     Default:  1
-#     Change:   `sysrc ozwdaemon_mqtt_instance=2`
-#     UnChange: `sysrc -x ozwdaemon_mqtt_instance`
+#     Change:   `sysrc ozw_mqtt_instance=2`
+#     UnChange: `sysrc -x ozw_mqtt_instance`
 #
-# ozw_mqtt_port: "MQTT Server Port"
+# ozw_mqtt_port: MQTT Server Port.
 #     Default:  1883
-#     Change:   `sysrc ozwd_mqtt_port=1993`
-#     UnChange: `sysrc -x ozwd_mqtt_port`
+#     Change:   `sysrc ozw_mqtt_port=1984`
+#     UnChange: `sysrc -x ozw_mqtt_port`
 #
-# ozw_mqtt_server: "MQTT Server Hostname/IP Address"
+# ozw_mqtt_server: MQTT Server Hostname/IP Address.
 #     Default:  localhost
-#     Change:   `sysrc ozwd_mqtt_server=192.168.10.100`
-#     UnChange: `sysrc -x ozwd_mqtt_server`
+#     Change:   `sysrc ozw_mqtt_server=192.168.10.100`
+#     UnChange: `sysrc -x ozw_mqtt_server`
+#
+# ozw_usb_path: The Path to the USB Stick/Serial Device file in your jail.
+#     Default:  /dev/cuaU0
+#     Change:   `sysrc ozw_usb_path=/dev/ttyACM0`
+#     UnChange: `srsrc -x ozw_usb_path
 
 # -------------------------------------------------------
 # Copy this file to '/usr/local/etc/rc.d/ozwdaemon' 
