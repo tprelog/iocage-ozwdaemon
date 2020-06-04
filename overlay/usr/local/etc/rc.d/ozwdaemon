@@ -84,9 +84,10 @@ ozwdaemon_restart() {
 
 start_precmd=${name}_precmd
 ozwdaemon_precmd() {
-  cd /root
+  local _workdir="/root"
+  cd "${_workdir}"
   
-  local _config="/root/.ozw_profile"
+  local _config="${_workdir}/.ozw_profile"
   if [ -f "${_config}" ]; then
     echo "Loading Enviroment Variables from ${_config}"
     . "${_config}"
