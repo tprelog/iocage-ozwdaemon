@@ -80,6 +80,7 @@ logfile="/var/log/${name}_daemon.log"
 : ${ozw_mqtt_instance:="1"}
 : ${ozw_mqtt_port:="1883"}
 : ${ozw_mqtt_server:="localhost"}
+: ${ozw_mqtt_tls:=false}
 
 command="/usr/sbin/daemon"
 extra_commands="logs restart"
@@ -121,10 +122,10 @@ ozwdaemon_precmd() {
     OZW_ARGS="${OZW_ARGS} --mqtt-username ${MQTT_USERNAME}"
   fi
   
-  if [ "${MQTT_TLS:=false}" == true ]; then
+  if [ "${MQTT_TLS:=${ozw_mqtt_tls}}" == true ]; then
     OZW_ARGS="${OZW_ARGS} --mqtt-tls"
-  elif [ "$MQTT_TLS" != false ]; then
-    echo "Invalid value for MQTT_TLS: \"$MQTT_TLS\", expected true or false."
+  elif [ "${MQTT_TLS}" != false ]; then
+    echo "Invalid value for MQTT_TLS: \"${MQTT_TLS}\", expected true or false."
     exit 1
   fi
   
