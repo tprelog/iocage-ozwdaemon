@@ -81,6 +81,7 @@ logfile="/var/log/${name}_daemon.log"
 : ${ozw_mqtt_port:="1883"}
 : ${ozw_mqtt_server:="localhost"}
 : ${ozw_mqtt_tls:=false}
+: ${ozw_stop_on_failure:=true}
 
 command="/usr/sbin/daemon"
 extra_commands="logs restart"
@@ -129,10 +130,10 @@ ozwdaemon_precmd() {
     exit 1
   fi
   
-  if [ "${STOP_ON_FAILURE:=true}" == true ]; then
+  if [ "${STOP_ON_FAILURE:=${ozw_stop_on_failure}}" == true ]; then
     OZW_ARGS="${OZW_ARGS} --stop-on-failure"
-  elif [ "$STOP_ON_FAILURE" != "false" ]; then
-    echo "Invalid value for STOP_ON_FAILURE: \"$STOP_ON_FAILURE\", expected true or false."
+  elif [ "${STOP_ON_FAILURE}" != false ]; then
+    echo "Invalid value for STOP_ON_FAILURE: \"${STOP_ON_FAILURE}\", expected true or false."
     exit 1
   fi
   
