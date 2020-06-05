@@ -20,7 +20,7 @@
 # ozwdaemon_profile: Path to a file containing ozwdaemon enviroment variables.
 #     Any variables set using ozw_profile will override `ozw_variable` values set
 #     in this rc service script or using `sysrc ozw_variable=value`.
-#     Default:  /root/.ozw_profile
+#     Default:  "/root/.ozw_profile"
 #     Change:   `sysrc ozw_profile=/root/config/ozw_profile`
 #     UnChange: `sysrc -x ozw_profile`
 #
@@ -34,8 +34,8 @@
 #     Change:   `sysrc ozw_user_dir=/root/config`
 #     UnChange: `sysrc -x ozw_user_dir`
 #
-# ozw_usb_path: Path to the Z-Wave USB stick or serial device.
-#     Default:  /dev/cuaU0
+# ozw_usb_path: Path to the Z-Wave USB Stick or Serial Device.
+#     Default:  "/dev/cuaU0"
 #     Change:   `sysrc ozw_usb_path=/dev/ttyACM0`
 #     UnChange: `srsrc -x ozw_usb_path`
 #
@@ -54,6 +54,16 @@
 #     Default:  localhost
 #     Change:   `sysrc ozw_mqtt_server=192.168.10.100`
 #     UnChange: `sysrc -x ozw_mqtt_server`
+#
+# ozw_mqtt_tls: Connect with TLS encryption to your MQTT Broker.
+#     Default:  false
+#     Change:   `sysrc ozw_mqtt_tls=true`
+#     UnChange: `sysrc -x ozw_mqtt_tls`
+#
+# ozw_stop_on_failure: Stop service if ozwdaemon detects a failure.
+#     Default:  true
+#     Change:   `sysrc ozw_stop_on_failure=false`
+#     UnChange: `sysrc -x ozw_stop_on_failure`
 
 # -------------------------------------------------------
 # Copy this file to '/usr/local/etc/rc.d/ozwdaemon' 
@@ -106,31 +116,31 @@ ozwdaemon_precmd() {
     . "${ozwdaemon_profile}"
   fi
  
-  if [ ! -c ${USB_PATH:=${ozw_usb_path}} ]; then
+  if [ ! -c ${USB_PATH:=$ozw_usb_path} ]; then
     echo "USB Path ${USB_PATH} does not exist or is not a Character Device"
     exit 128
   fi
   
   OZW_ARGS=""
-  OZW_ARGS=" -s ${USB_PATH} \
-    --config-dir ${OZW_CONFIG_DIR:=${ozw_config_dir}} \
-    --user-dir ${OZW_USER_DIR:=${ozw_user_dir}} \
-    --mqtt-instance ${MQTT_INSTANCE:=${ozw_mqtt_instance}} \
-    --mqtt-port ${MQTT_PORT:=${ozw_mqtt_port}} \
-    --mqtt-server ${MQTT_SERVER:=${ozw_mqtt_server}}"
+  OZW_ARGS=" --serial-port ${USB_PATH} \
+    --config-dir ${OZW_CONFIG_DIR:=$ozw_config_dir} \
+    --user-dir ${OZW_USER_DIR:=$ozw_user_dir} \
+    --mqtt-instance ${MQTT_INSTANCE:=$ozw_mqtt_instance} \
+    --mqtt-port ${MQTT_PORT:=$ozw_mqtt_port} \
+    --mqtt-server ${MQTT_SERVER:=$ozw_mqtt_server}"
 
-  if [ ! -z "${MQTT_USERNAME:=${ozw_mqtt_user}}" ]; then
+  if [ ! -z "${MQTT_USERNAME:=$ozw_mqtt_user}" ]; then
     OZW_ARGS="${OZW_ARGS} --mqtt-username ${MQTT_USERNAME}"
   fi
   
-  if [ "${MQTT_TLS:=${ozw_mqtt_tls}}" == true ]; then
+  if [ "${MQTT_TLS:=$ozw_mqtt_tls}" == true ]; then
     OZW_ARGS="${OZW_ARGS} --mqtt-tls"
   elif [ "${MQTT_TLS}" != false ]; then
     echo "Invalid value for MQTT_TLS: \"${MQTT_TLS}\", expected true or false."
     exit 1
   fi
   
-  if [ "${STOP_ON_FAILURE:=${ozw_stop_on_failure}}" == true ]; then
+  if [ "${STOP_ON_FAILURE:=$ozw_stop_on_failure}" == true ]; then
     OZW_ARGS="${OZW_ARGS} --stop-on-failure"
   elif [ "${STOP_ON_FAILURE}" != false ]; then
     echo "Invalid value for STOP_ON_FAILURE: \"${STOP_ON_FAILURE}\", expected true or false."
