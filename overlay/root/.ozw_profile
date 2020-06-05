@@ -1,12 +1,13 @@
 ##
-## Use this file to set enviroment variables for ozwdaemon on FreeNAS/FreeBSD
+## You can use this file to set enviroment variables for the ozwdaemon service on FreeNAS/FreeBSD.
 ## https://github.com/OpenZWave/qt-openzwave#home-assistant-mqtt-client-adapter
 ##
-## The `ozw_profile` contains default values used by the ozwdaemon rc service on FreeNAS/FreeBSD.
-## Lines beginning with a ` # ` will be ignored and values set using `sysrc` will be used instead.
+## This ozw_profile contains default values used by the ozwdaemon rc service script on FreeNAS/FreeBSD.
+## Lines beginning with a " # " will be ignored and values set using `sysrc` will be used instead.
 ## 
-## Variables set in this file will override corresponding values set in `/usr/local/etc/rc.d/ozwdaemon` 
-##    and also any values set using `sysrc variable=value`
+## Variables set in ozw_profile will override corresponding values set in `/usr/local/etc/rc.d/ozwdaemon` and
+## also any values set using `sysrc variable=value`. The default path to this file is `/root/.ozw_profile`.
+## You can set a different path using `sysrc ozwdaemon_profile=/path/to/ozw_profile`.
 ##
 
 #MQTT_INSTANCE=1
@@ -28,14 +29,10 @@
 #USB_PATH="/dev/cuaU0"
 
 
-# --------------------------------------------------------------------------- #
-# -------- Example to change what's getting logged -------------------------- #
+## -------------------------------------------------------------------------- #
+## -------- You should not need to edit below this line --------------------- #
 
-#QT_LOGGING_RULES="*.debug=false;ozw.library.debug=true"
-
-# --------------------------------------------------------------------------- #
-# -------- You should not need to edit below this line ---------------------- #
-
+#export QT_LOGGING_RULES="*.debug=false;ozw.library.debug=true"
 export LD_LIBRARY_PATH="/usr/local/lib:/usr/local/lib64:$LD_LIBRARY_PATH"
 export MQTT_INSTANCE
 export MQTT_PORT
@@ -45,6 +42,5 @@ export MQTT_PASSWORD
 export OZW_CONFIG_DIR
 export OZW_NETWORK_KEY
 export OZW_USER_DIR
-export QT_LOGGING_RULES
 export STOP_ON_FAILURE
 export USB_PATH
