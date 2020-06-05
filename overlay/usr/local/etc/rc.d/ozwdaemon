@@ -134,11 +134,13 @@ ozwdaemon_precmd() {
     echo "Invalid value for STOP_ON_FAILURE: \"$STOP_ON_FAILURE\", expected true or false."
     exit 1
   fi
-
-  rc_flags="-f -o ${logfile} -P ${pidfile} -p ${pidfile_child} /usr/local/bin/ozwdaemon ${OZW_ARGS}" ${rc_flags}
   
-  [ -e "${logfile}" ] && rm -f -- "${logfile}"
-  install -g ${ozwdaemon_group} -o ${ozwdaemon_user} -- /dev/null "${logfile}"
+  install -g ${ozwdaemon_group} -m 644 -o ${ozwdaemon_user} -- /dev/null "${logfile}"
+  install -g ${ozwdaemon_group} -m 644 -o ${ozwdaemon_user} -- /dev/null "${pidfile}"
+  install -g ${ozwdaemon_group} -m 644 -o ${ozwdaemon_user} -- /dev/null "${pidfile_child}"
+  
+  rc_flags="-f -o ${logfile} -P ${pidfile} -p ${pidfile_child} /usr/local/bin/ozwdaemon ${OZW_ARGS}" ${rc_flags}
+
 }
 
 start_postcmd=${name}_poststart
