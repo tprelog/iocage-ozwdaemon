@@ -39,11 +39,11 @@
 #     Change:   `sysrc ozw_usb_path=/dev/ttyACM0`
 #     UnChange: `srsrc -x ozw_usb_path`
 #
-# ozw_mqtt_instance: OpenZWave Instance Number. If you want to run more than one
+# ozw_instance: OpenZWave Instance Number. If you want to run more than one
 #     Z-Wave Network with multiple ozwdaemons, set this to a number greater than 1.
 #     Default:  1
-#     Change:   `sysrc ozw_mqtt_instance=2`
-#     UnChange: `sysrc -x ozw_mqtt_instance`
+#     Change:   `sysrc ozw_instance=2`
+#     UnChange: `sysrc -x ozw_instance`
 #
 # ozw_mqtt_port: MQTT Server Port.
 #     Default:  1883
@@ -87,7 +87,7 @@ logfile="/var/log/${name}_daemon.log"
 : ${ozw_config_dir:="/usr/local/etc/openzwave"}
 : ${ozw_user_dir:="/root"}
 : ${ozw_usb_path:="/dev/cuaU0"}
-: ${ozw_mqtt_instance:="1"}
+: ${ozw_instance:="1"}
 : ${ozw_mqtt_port:="1883"}
 : ${ozw_mqtt_server:="localhost"}
 : ${ozw_mqtt_tls:=false}
@@ -125,7 +125,7 @@ ozwdaemon_precmd() {
   OZW_ARGS=" --serial-port ${USB_PATH} \
     --config-dir ${OZW_CONFIG_DIR:=$ozw_config_dir} \
     --user-dir ${OZW_USER_DIR:=$ozw_user_dir} \
-    --mqtt-instance ${MQTT_INSTANCE:=$ozw_mqtt_instance} \
+    --mqtt-instance ${OZW_INSTANCE:=$ozw_instance} \
     --mqtt-port ${MQTT_PORT:=$ozw_mqtt_port} \
     --mqtt-server ${MQTT_SERVER:=$ozw_mqtt_server}"
 

@@ -10,8 +10,6 @@
 ## You can set a different path using `sysrc ozwdaemon_profile=/path/to/ozw_profile`.
 ##
 
-#MQTT_INSTANCE=1
-
 #MQTT_PORT=1883
 
 #MQTT_SERVER=localhost
@@ -19,6 +17,8 @@
 #MQTT_USERNAME="ozw"
 
 #MQTT_PASSWORD="SuPeR!sEcret"
+
+#OZW_INSTANCE=1
 
 #OZW_NETWORK_KEY="0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00"
 
@@ -34,12 +34,12 @@
 
 #export QT_LOGGING_RULES="*.debug=false;ozw.library.debug=true"
 export LD_LIBRARY_PATH="/usr/local/lib:/usr/local/lib64:$LD_LIBRARY_PATH"
-export MQTT_INSTANCE
 export MQTT_PORT
 export MQTT_SERVER
 export MQTT_USERNAME
 export MQTT_PASSWORD
 export OZW_CONFIG_DIR
+export OZW_INSTANCE
 export OZW_NETWORK_KEY
 export OZW_USER_DIR
 export STOP_ON_FAILURE
